@@ -152,7 +152,9 @@ class View:
 
         cls.__view_children_items__ = children
 
-    def __init__(self, *, timeout: Optional[float] = 180.0):
+    def __init__(self, *, timeout: Optional[float] = 180.0, bot = None, info: str = None):
+        self.bot = bot
+        self.info = info
         self.timeout = timeout
         self.children: List[Item] = []
         for func in self.__view_children_items__:
@@ -171,7 +173,7 @@ class View:
         self.__stopped: asyncio.Future[bool] = loop.create_future()
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} timeout={self.timeout} children={len(self.children)}>'
+        return f'<{self.__class__.__name__} timeout={self.timeout} children={len(self.children)} bot={self.bot}>'
 
     async def __timeout_task_impl(self) -> None:
         while True:
