@@ -106,8 +106,10 @@ class Select(Item[V]):
         options: List[SelectOption] = MISSING,
         disabled: bool = False,
         row: Optional[int] = None,
+        info: str = None
     ) -> None:
         super().__init__()
+        self.info = info
         self._selected_values: List[str] = []
         self._provided_custom_id = custom_id is not MISSING
         custom_id = os.urandom(16).hex() if custom_id is MISSING else custom_id
